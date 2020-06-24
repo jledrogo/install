@@ -58,4 +58,4 @@ php init.php $USER helloworld
 
 # launch it
 
-firefox "http://my.it.rocks/helloworld" "http://itrocks.org"
+firefox "http://my.it.rocks/helloworld" "https://itrocks.org"
