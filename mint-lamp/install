@@ -1,0 +1,61 @@
+#/bin/bash
+# it.rocks project initializer for LAMP environnement under Mint 19 Linux distribution
+# Download it : https://github.com/itrocks/install/mint-lamp/install
+# Run it : bash install
+
+echo
+echo "Do not run (press Ctrl+C) if any of these conditions are not met :"
+echo
+echo "- This script is for use with Mint vers 19.3 Linux distribution only"
+echo "- This will run system commands run as root like apt update and apt-dist upgrade"
+echo "  Please ensure that your system is clean and ready to be updated"
+echo "- This will install the current version of apache and mysql supported by your system"
+echo "- This will install php 7.3 from the sury.org repositories"
+echo "- This will configure apache and mysql to meet it.rocks requirements"
+echo "- The system will ask you a root access to your files and databases"
+echo
+echo "Press any key if you are READY to continue"
+echo "Press Ctrl+C if you DO NOT want to continue"
+read
+
+# install needed software
+
+sudo apt update -y
+sudo apt dist-upgrade -y
+sudo apt install -y apt-transport-https ca-certificates curl lsb-release
+sudo sudo add-apt-repository -y ppa:ondrej/php
+sudo apt update -y
+sudo apt install -y apache2 git gnumeric libapache2-mod-php7.4 libapache2-mpm-itk mysql-server php7.4-curl php7.4-gd2 php7.4-mailparse php7.4-mysqlnd php7.4-xml php7.4-yaml wget
+sudo a2enmod mpm_itk
+
+# configure network
+
+sudo sed -i 's|\slocalhost| my.it.rocks localhost|g' /etc/hosts
+
+# configure apache
+
+USR=`whoami`
+GRP=`groups | cut -f 1 --delimiter=' '`
+DIR=`eval echo ~$USR`
+sudo wget -O /etc/apache2/sites-available/it.rocks.conf https://github.com/itrocks/install/mint-lamp/it.rocks.conf
+sudo sed -i "s|yourusername|$USR|g"    /etc/apache2/sites-available/it.rocks.conf
+sudo sed -i "s|yourusergroup|$GRP|g"   /etc/apache2/sites-available/it.rocks.conf
+sudo sed -i "s|youruserhomedir|$DIR|g" /etc/apache2/sites-availabple/it.rocks.conf
+sudo a2ensite it.rocks
+sudo systemctl reload apache2
+
+# configure mysql
+
+echo '[mysqld]'      | sudo tee    /etc/mysql/mysql.conf.d/it.rocks.cnf >/dev/null
+echo 'sql_mode = ""' | sudo tee -a /etc/mysql/mysql.conf.d/it.rocks.cnf >/dev/null
+sudo systemctl restart mysql
+
+# create an hello-world project
+
+cd ~
+wget -O init.php https://gitlab.bappli.com/itrocks/framework/raw/master/init.php
+php init.php $USER helloworld
+
+# launch it
+
+firefox "http://my.it.rocks/helloworld" "http://itrocks.org"
