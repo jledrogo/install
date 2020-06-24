@@ -40,7 +40,7 @@ DIR=`eval echo ~$USR`
 sudo wget -O /etc/apache2/sites-available/it.rocks.conf https://raw.githubusercontent.com/itrocks/install/master/mint-lamp/it.rocks.conf
 sudo sed -i "s|yourusername|$USR|g"    /etc/apache2/sites-available/it.rocks.conf
 sudo sed -i "s|yourusergroup|$GRP|g"   /etc/apache2/sites-available/it.rocks.conf
-sudo sed -i "s|youruserhomedir|$DIR|g" /etc/apache2/sites-availabple/it.rocks.conf
+sudo sed -i "s|youruserhomedir|$DIR|g" /etc/apache2/sites-available/it.rocks.conf
 sudo a2ensite it.rocks
 sudo systemctl reload apache2
 
