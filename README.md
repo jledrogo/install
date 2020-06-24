@@ -19,7 +19,7 @@ You may run part of these steps manually with your own adaptation, if needed.
 ## Mint 19.3 "Tricia"
 
 ```bash
-wget https://github.com/itrocks/install/mint-lamp/install
+wget https://raw.githubusercontent.com/itrocks/install/master/mint-lamp/install
 bash install
 rm install
 ```
