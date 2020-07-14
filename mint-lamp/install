@@ -10,7 +10,7 @@ echo "- This script is for use with Mint vers 19.3 Linux distribution only"
 echo "- This will run system commands run as root like apt update and apt-dist upgrade"
 echo "  Please ensure that your system is clean and ready to be updated"
 echo "- This will install the current version of apache and mysql supported by your system"
-echo "- This will install php 7.3 from the sury.org repositories"
+echo "- This will install php 7.4 from the sury.org repositories"
 echo "- This will configure apache and mysql to meet it.rocks requirements"
 echo "- The system will ask you a root access to your files and databases"
 echo
